@@ -65,24 +65,45 @@ app.listen(8000);
 ```
 3. 启动一个 Container 安装依赖包
 ```bash
-docker run --rm -itv /current_dir/express_test:/var/node/docker_node -w /var/node/docker_node wkl/node_pm2 npm install
+docker run --rm \
+ -itv /current_dir/express_test:/var/node/docker_node \
+ -w /var/node/docker_node \
+ wkl/node_pm2 \
+ npm install
 ```
 -w 参数表示命令执行的当前工作目录，屏幕会打印依赖包的安装过程。等依赖安装完成，这个 Container 会自动退出。
 如果出现 EACCESS 的权限错误，可以执行命令许可 SELinux 的工作状态。这个只是临时修改，重启系统会恢复
 ```bash
 su -c "setenforce 0"
 ```
-4. 启动一个 Container 运行程序，要求这个 Conteiner 有一下要求：
+4. 启动一个 Container 运行程序，要求这个 Conteiner 有以下要求：
 - 端口映射
 - 文件挂载log、code
 - 加载 Redis 的 Container
 ```bash
-docker run -d --name 'nodeCount' -p 8000:8000 -v /current_dir/express_test:/var/node/docker_node -v /current_dir/log/pm2:/root/.pm2/logs --link redis-server:redis -w /var/node/docker_node/ wkl/node_pm2 pm2 start app.js
+docker run -d \
+  --name 'nodeCount' \
+  -p 8000:8000 \
+  -v /current_dir/express_test:/var/node/docker_node \
+  -v /current_dir/log/pm2:/root/.pm2/logs \
+  --link redis-server:redis \
+  -w /var/node/docker_node/ \
+  wkl/node_pm2 \
+  pm2 start app.js
 ```
 执行 `docker ps` 发现这个 Container 并没有启动，这是利用 pm2 的守护进程启动了应用，Container 认为进程已经运行结束。可以做一些调整
 ```bash
-docker run -d --name 'nodeCount' -p 8000:8000 -v /current_dir/express_test:/var/node/docker_node -v /current_dir/log/pm2:/root/.pm2/logs --link redis-server:redis -w /var/node/docker_node/ wkl/node_pm2 pm2 start --no-daemon app.js
+docker run -d \
+  --name 'nodeCount' \
+  -p 8000:8000 \
+  -v /current_dir/express_test:/var/node/docker_node \
+  -v /current_dir/log/pm2:/root/.pm2/logs \
+  --link redis-server:redis \
+  -w /var/node/docker_node/ \
+  wkl/node_pm2 \
+  pm2 start --no-daemon app.js
 ```
 在执行 `docker ps`,可以看到对应的 Container
+
 5. 使用 Nginx 做反向代理
 待续。。。
