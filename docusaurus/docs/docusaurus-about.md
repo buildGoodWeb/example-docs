@@ -10,3 +10,11 @@ title: Docusaurus About
 cd website
 docker-compose up
 ```
+
+## build gh-page
+```bash
+GIT_USER=xxx \
+  CURRENT_BRANCH=master \
+  USE_SSH=true \
+  yarn run publish-gh-pages
+```

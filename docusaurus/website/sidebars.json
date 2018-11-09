@@ -1,8 +1,9 @@
 {
   "docs": {
-    "Docusaurus": ["doc1", "docusaurus-about"],
+    "Docs": ["docusaurus-about"],
     "React": ["doc2"],
-    "Second Category": ["doc3"]
+    "Node": ["express-redis"],
+    "Build Tools": ["jenkins"]
   },
   "docs-other": {
     "First Category": ["doc4", "doc5"]
