@@ -1,7 +1,7 @@
 {
   "docs": {
     "Docs": ["docusaurus-about"],
-    "React": ["doc2"],
+    "React": ["react-15-to-16"],
     "Node": ["express-redis"],
     "Build Tools": ["jenkins"]
   },
