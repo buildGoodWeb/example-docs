@@ -17,9 +17,7 @@ program
 program
   .command('create [dir]')
   .description('创建一个空的博客')
-  .action(function (dir) {
-    console.log('create %s', dir);
-  });
+  .action(require('../lib/cmd_create'));
 
 // preview 命令
 program
@@ -32,9 +30,7 @@ program
   .command('build [dir]')
   .description('生成整站静态 HTML')
   .option('-o, --output <dir>', '生成的静态 HTML 存放目录')
-  .action(function (dir, options) {
-    console.log('create %s, output %s', dir, options.output);
-  });
+  .action(require('../lib/cmd_build'));
 
 // 开始解析命令
 program.parse(process.argv);
